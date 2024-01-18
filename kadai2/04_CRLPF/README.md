@@ -7,3 +7,11 @@
 * 割り込み周期は、0.000625msで測定
 
 ## 特性測定例
+* 周波数特性
+ ![top](./pic_CRLPF/22k_CRLPFPower.png "top")
+ ![top](./pic_CRLPF/11k_CRLPFPower.png "top")
+
+* 位相特性
+ ![top](./pic_CRLPF/22k_CRLPFPhase.png "top")
+ ![top](./pic_CRLPF/11k_CRLPFPhase.png "top")
+ ※かなり怪しいので要検証
