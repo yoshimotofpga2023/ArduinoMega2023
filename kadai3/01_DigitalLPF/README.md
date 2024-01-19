@@ -14,8 +14,18 @@
 
  ** 周波数特性
 
- ![top](./pic_CRLPF/22k_CRLPFPower.png "top")
+ ![power_4](./picDF/DFLPFpower_4.png "power_4")
 
  ** 位相特性
 
- ![top](./pic_CRLPF/22k_CRLPFPhase.png "top")
+ ![phase_4](./picDF/DFLPFphase_4.png "phase_4")
+
+ * 8点移動平均
+
+ ** 周波数特性
+
+ ![power_8](./picDF/DFLPFpower_8.png "power_8")
+
+ ** 位相特性
+
+ ![phase_8](./picDF/DFLPFphase_8.png "phase_8")
