@@ -21,37 +21,43 @@
 * ステップ数 1：D値 < 8
    理論値　1024 / 1 = 1024 → 1 / (1024 * 0.512ms) =  1.9[Hz]
 
+   ![top](./pic_SINEGen/singen_0512_S01.png "top")
+
+
 * ステップ数 20 ： 160 < D値 < 167 
    理論値　1024 / 20 = 52 → 1 / (52 * 0.512ms) =  38[Hz]
+
+   ![top](./pic_SINEGen/singen_0512_S20.png "top")
 
 * ステップ数 60 ： 480 < D値 < 487
 
    理論値　1024 / 60 = 17 → 1 / (17 * 0.512ms) =  125[Hz]
 
-* 周波数特性
- ![top](./pic_CRLPF/22k_CRLPFPower.png "top")
- ![top](./pic_CRLPF/11k_CRLPFPower.png "top")
-
-* 位相特性
- ![top](./pic_CRLPF/22k_CRLPFPhase.png "top")
- ![top](./pic_CRLPF/11k_CRLPFPhase.png "top")
- ※かなり怪しいので要検証
+   ![top](./pic_SINEGen/singen_0512_S60.png "top")
 
 ## 実験2：2種類の割り込み周期の正弦波測定
 * 割り込み周期:2.048ms
   * ステップ数 20 ： 160 < D値 < 167 
 
      理論値　1024 / 20 = 52 → 1 / (52 * 2.048ms) =  9[Hz]
+ 
+     ![top](./pic_SINEGen/singen_2048_S20.png "top")
 
   * ステップ数 60 ： 480 < D値 < 487
 
      理論値　1024 / 60 = 17 → 1 / (17 * 2.048ms) =  28[Hz]
+
+     ![top](./pic_SINEGen/singen_2048_S60.png "top")
 
 * 割り込み周期:4.096ms
   * ステップ数 20 ： 160 < D値 < 167 
 
      理論値　1024 / 20 = 52 → 1 / (52 * 4.096ms) =  4.7[Hz]
 
+     ![top](./pic_SINEGen/singen_4096_S20.png "top")
+
   * ステップ数 60 ： 480 < D値 < 487
 
      理論値　1024 / 60 = 17 → 1 / (17 * 4.096ms) =  14[Hz]     
+
+     ![top](./pic_SINEGen/singen_4096_S60.png "top")
