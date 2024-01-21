@@ -35,6 +35,9 @@ void setup(){
     
   Serial.begin(115200);
   
+  // PWM出力(D11, 12)設定タイマーレジスタ(Timer1:16bit)
+  TCCR1A = (1 << COM1B1) | (0 << COM1B0) | (1 << WGM12) | (1 << WGM10); //8bit高速PWM
+  TCCR1B = (1 << CS10);
   
   lcd.begin(16, 2);          // LCDの桁数と行数を指定する(16桁2行)
   lcd.clear();               // LCD画面をクリア
@@ -59,7 +62,8 @@ void loop(){
 
   Serial.println(ad_motor);
   analogWrite(PWM_MOTOR, ad_motor);
- 
+  analogWrite(PWM_GEN, ad_motor);
+
 //  delay(100);
   
 }
