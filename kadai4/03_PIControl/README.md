@@ -7,3 +7,14 @@
 * 制御の追従等は未検証。
 * 理論値についても未検証。
 * analogReadは1024段階、analogWriteは256段階の差異があるため、モーター発電入力値を受け取るanalogRead値やPI制御用の計算では1024段階の値で計算し、最終的に得られるモーター指令値は4で割り算した値(integer)をanalogWriteの指令値引数として渡している。
+
+* PI制御の波形
+
+    * Target :  200 or 400
+
+    * D: 200前後、400前後
+    * kp : 3、 ki : 13
+
+    * 200 -> 400
+
+         ![PI](./pic_PIControl/PIControl01.png "PI")

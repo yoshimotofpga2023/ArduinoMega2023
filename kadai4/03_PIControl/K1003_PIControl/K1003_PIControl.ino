@@ -13,21 +13,24 @@
 
 #define Motor_Input A2
 #define Motor_PWM 2
+#define TARGET_GEN 11
 #define PWM_GEN 12
 
 #define VON 200
 #define VOFF 75
 
+#define BRINK_INTERVAL 250 
+
 // LCDディスプレイ設定
 LiquidCrystal lcd(35, 23, 33, 25, 31, 27, 29);
-
+unsigned int Timer5_tick;
 const int INPUT_PIN = A0;    // 入力ピンをA0に固定
 int VOLUME;                  // 変数を整数型で宣言
 
 int chatt01, chatt02;
 
-unsigned int mv;
-int en;
+long mv;
+long en;
 int ki;
 int kp;
 long di;
@@ -46,14 +49,31 @@ void setup(){
   pinMode(Motor_Input,INPUT) ;
   pinMode(Motor_PWM,OUTPUT) ;
 
-  Serial.begin(115200);
-    
+//  Serial.begin(115200);
+  Serial.begin(9600);
+
+  // 割り込みタイマー設定レジスタ(Timer5:16bit)
+  TCCR5A  = 0;
+  TCCR5B  = 0;
+  TCCR5B |= (1 << WGM52) | (1 << CS50);  //CTCmode //prescaler to 1
+//  TCCR5B |= (1 << WGM52) | (1 << CS51);  //CTCmode //prescaler to 8
+//  TCCR5B |= (1 << WGM52) | (1 << CS50)| (1 << CS51) ;  //CTCmode //prescaler to 64
+//  OCR1A   = 65535;
+  OCR5A   = 8191; // 0.512ms割り込み周期
+//  OCR5A   = 1023; 
+  TIMSK5 |= (1 << OCIE5A);
+
+  // PWM出力(D11, 12)設定タイマーレジスタ(Timer1:16bit)
+  TCCR1A = (1 << COM1B1) | (0 << COM1B0) | (1 << WGM12) | (1 << WGM10); //8bit高速PWM
+  TCCR1B = (1 << CS10);
+
   lcd.begin(16, 2);          // LCDの桁数と行数を指定する(16桁2行)
   lcd.clear();               // LCD画面をクリア
   lcd.setCursor(0, 0);       // カーソルの位置を指定
   lcd.print("Hello!");       // 文字の表示
   lcd.setCursor(0, 1);       // カーソルの位置を指定
   lcd.print("NITTC ARDUINO");  // 文字の表示
+
 
   chatt01 = 0;
   chatt02 = 0;
@@ -62,17 +82,37 @@ void setup(){
   di = 0;
   mv = 0;
 
+  Timer5_tick = 0;
+
+}
+
+ISR (TIMER5_COMPA_vect) {
+
+  if (Timer5_tick < BRINK_INTERVAL){
+    Timer5_tick++;
+  } else {
+    Serial.print("en: ");
+    Serial.println(en);
+    Serial.print("di: ");
+    Serial.println(di);
+    Serial.print("mv: ");
+    Serial.println(mv);
+    Timer5_tick = 0;
+  }
+
 }
 
 void loop(){
   int state1, state2, state3, state4 ;
-  unsigned int m_input;
-  unsigned int target;
+  int m_input;
+  int target;
 
   state1 = digitalRead(input1_pin) ; //スイッチの状態を読む
   state2 = digitalRead(input2_pin) ; //スイッチの状態を読む
   state3 = digitalRead(input3_pin) ; //スイッチの状態を読む
   state4 = digitalRead(input4_pin) ; //スイッチの状態を読む
+
+  lcd.clear();
 
   if (state4 == HIGH){
 
@@ -96,10 +136,20 @@ void loop(){
         chatt02 = 0;
       }
     }
+/*
     Serial.print("*kp ");
     Serial.println(kp);
     Serial.print("ki ");
     Serial.println(ki);
+*/
+
+    lcd.setCursor(0, 1);       // カーソルの位置を指定
+    lcd.print("*kp: ");       // 文字の表示
+    lcd.print(kp);       // 文字の表示
+    lcd.setCursor(8, 1);       // カーソルの位置を指定
+    lcd.print("ki: ");       // 文字の表示
+    lcd.print(ki);       // 文字の表示
+
 
   } else {
 
@@ -123,16 +173,28 @@ void loop(){
         chatt02 = 0;
       }
     }
+
+/*
     Serial.print("kp ");
     Serial.println(kp);
     Serial.print("*ki ");
     Serial.println(ki);
+*/
+    lcd.setCursor(0, 1);       // カーソルの位置を指定
+    lcd.print("kp: ");       // 文字の表示
+    lcd.print(kp);       // 文字の表示
+    lcd.setCursor(7, 1);       // カーソルの位置を指定
+    lcd.print("*ki: ");       // 文字の表示
+    lcd.print(ki);       // 文字の表示
+
   }
 
   m_input = analogRead(Motor_Input);
+
+/*
   Serial.print("MotorInput: ");
   Serial.println(m_input);
-
+*/
   if (state3 == HIGH){
     target = 400;
   } else {
@@ -150,13 +212,25 @@ void loop(){
   }
 
   analogWrite(Motor_PWM, mv/4);
+//  analogWrite(TARGET_GEN, target/4);
+  analogWrite(TARGET_GEN, m_input/4);
+  analogWrite(PWM_GEN,m_input/4);
 
+/*
   Serial.print("T: ");
   Serial.println(target);
   Serial.print("D: ");
   Serial.println(m_input);
+*/
+
+  lcd.setCursor(0, 0);       // カーソルの位置を指定
+  lcd.print("T: ");       // 文字の表示
+  lcd.print(target);       // 文字の表示
+  lcd.setCursor(8, 0);       // カーソルの位置を指定
+  lcd.print("D: ");       // 文字の表示
+  lcd.print(m_input);       // 文字の表示
 
 
-  delay(100);
+  delay(30);
   
 }
