@@ -81,11 +81,14 @@ void setup(){
   en = 0;
   di = 0;
   mv = 0;
+  kp = 3;
+  ki = 40;
 
   Timer5_tick = 0;
 
 }
 
+//デバッグ用シリアルモニタ表示割り込みタイマ
 ISR (TIMER5_COMPA_vect) {
 
   if (Timer5_tick < BRINK_INTERVAL){
@@ -213,7 +216,7 @@ void loop(){
 
   analogWrite(Motor_PWM, mv/4);
 //  analogWrite(TARGET_GEN, target/4);
-  analogWrite(TARGET_GEN, m_input/4);
+  analogWrite(TARGET_GEN, target/4);
   analogWrite(PWM_GEN,m_input/4);
 
 /*
@@ -231,6 +234,6 @@ void loop(){
   lcd.print(m_input);       // 文字の表示
 
 
-  delay(30);
+//  delay(30);
   
 }
