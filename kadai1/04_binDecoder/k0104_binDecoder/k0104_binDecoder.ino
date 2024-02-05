@@ -1,29 +1,3 @@
-# LED点灯プログラム
-
-## 概要
-* arduinoを用いてLEDの点灯を行うプログラムを作成する。Arduinoでのプログラミング方法やマイコンを用いたLED点灯回路の設計概要を学ぶ。
-
-## メモ
-* プログラム
-```LEDBlink.ino
-/*
-    Lチカ for Arduino UNO
-    |_ BuiltinのLEDの点滅プログラム
-
-
-    The circuit:
-    * 各inputに接続されているコンポーネントのリスト
-    * 各outputに接続されているコンポーネントのリスト
-
-    Created R6.02.01
-    By S.YOSHIMOTO
-    Modified 
-    By 
-
-    URL:
-
-*/
-
 #include <LiquidCrystal.h>
 
 #define input1_pin 7
@@ -36,7 +10,7 @@
 #define led_pin3 12
 #define led_pin4 13
 
-#define BRINK_INTERVAL 250 // タイマー文周用カウンタ
+#define BRINK_INTERVAL 250 
 
 LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
 
@@ -54,15 +28,18 @@ void setup(){
   pinMode(led_pin1,OUTPUT) ;
   pinMode(led_pin2,OUTPUT) ;
   pinMode(led_pin3,OUTPUT) ;
-  pinMode(led_pin4,OUTPUT) ;  
+  pinMode(led_pin4,OUTPUT) ;
+  
   
   Serial.begin(115200);
 
   TCCR1A  = 0;
   TCCR1B  = 0;
-  TCCR1B |= (1 << WGM12) | (1 << CS12);  //CTCmode //prescaler to 1
+  TCCR1B |= (1 << WGM12) | (1 << CS12);  //CTCmode //prescaler to 256
+//  OCR1A   = 65535;
   OCR1A   = 255;
-  TIMSK1 |= (1 << OCIE1A);  
+  TIMSK1 |= (1 << OCIE1A);
+  
   
   lcd.begin(16, 2);          // LCDの桁数と行数を指定する(16桁2行)
   lcd.clear();               // LCD画面をクリア
@@ -71,32 +48,51 @@ void setup(){
   lcd.setCursor(0, 1);       // カーソルの位置を指定
   lcd.print("NITTC ARDUINO");  // 文字の表示
 
+  digitalWrite(12, LOW);
+  digitalWrite(13, HIGH);
+
 }
 
 ISR (TIMER1_COMPA_vect) {
 
-  /*
-  タイマー1によるタイマー割り込み処理
-  */
+  int s12, s13;
+  s13 = digitalRead(13);
+  s12 = digitalRead(12);
+
+  if (Timer1_tick < BRINK_INTERVAL){
+    Timer1_tick++;
+  } else {
+  Serial.println(millis());
+    digitalWrite(led_pin4, !(digitalRead(13)));
+    digitalWrite(led_pin3, !(digitalRead(12)));
+    Timer1_tick = 0;
+  }
 
 }
-
 
 
 void loop(){
   int status1, status2, status3, status4 ;
   status1 = digitalRead(input1_pin) ; //スイッチの状態を読む
+
+  //  Serial.println(status1) ;
+
   status2 = digitalRead(input2_pin) ; //スイッチの状態を読む
   status3 = digitalRead(input3_pin) ; //スイッチの状態を読む
   status4 = digitalRead(input4_pin) ; //スイッチの状態を読む
 
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(1000); // Wait for 1000 millisecond(s)
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(1000); // Wait for 1000 millisecond(s)
+
+  
+  VOLUME = analogRead(INPUT_PIN);  // アナログ値の読み取り
+  
+  v_data = VOLUME * 4888;
+  v_data = v_data / 1000;
+  
+//  Serial.print("Volume: ");        // シリアルモニタに出力
+//  Serial.println(VOLUME);
+//  Serial.print("Volt: ");        // シリアルモニタに出力
+//  Serial.println(v_data);
+ 
+//  delay(100);
   
 }
-
-
-
-```

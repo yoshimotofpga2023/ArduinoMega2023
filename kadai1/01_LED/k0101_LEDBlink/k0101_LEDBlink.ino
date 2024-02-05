@@ -1,11 +1,3 @@
-# LED点灯プログラム
-
-## 概要
-* arduinoを用いてLEDの点灯を行うプログラムを作成する。Arduinoでのプログラミング方法やマイコンを用いたLED点灯回路の設計概要を学ぶ。
-
-## メモ
-* プログラム
-```LEDBlink.ino
 /*
     Lチカ for Arduino UNO
     |_ BuiltinのLEDの点滅プログラム
@@ -96,7 +88,3 @@ void loop(){
   delay(1000); // Wait for 1000 millisecond(s)
   
 }
-
-
-
-```
