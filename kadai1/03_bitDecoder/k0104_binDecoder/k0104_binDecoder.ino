@@ -1,6 +1,6 @@
 /*
-    Lチカ for Arduino UNO
-    |_ BuiltinのLEDの点滅プログラム
+    2進数2bitのLCD表示 for Arduino UNO
+    |_ トグルスイッチの状態で2bitを表現しLCDに10進数で表示する
 
 
     The circuit:
@@ -12,7 +12,7 @@
     Modified 
     By 
 
-    URL:https://www.tinkercad.com/things/9LBXFPg4b0K-k0101bkadai1arduino
+    URL:https://www.tinkercad.com/things/7RhP9S561Sq-k0104kadai1arduinorev01
 
 */
 
@@ -35,7 +35,7 @@ LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
 const int INPUT_PIN = A0;    // 入力ピンをA0に固定
 int VOLUME;                  // 変数を整数型で宣言
 unsigned long v_data;
-unsigned int Timer1_tick;  // Timer1の割り込み回数を数える変数
+unsigned int Timer1_tick;	// Timer1の割り込み回数を数える変数
 
 void setup(){
   pinMode(input1_pin,INPUT) ;
@@ -48,7 +48,7 @@ void setup(){
   pinMode(led_pin3,OUTPUT) ;
   pinMode(led_pin4,OUTPUT) ;  
   
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   TCCR1A  = 0;
   TCCR1B  = 0;
@@ -62,6 +62,8 @@ void setup(){
   lcd.print("Hello!");       // 文字の表示
   lcd.setCursor(0, 1);       // カーソルの位置を指定
   lcd.print("NITTC ARDUINO");  // 文字の表示
+  
+  delay(1000);
 
 }
 
@@ -82,9 +84,39 @@ void loop(){
   status3 = digitalRead(input3_pin) ; //スイッチの状態を読む
   status4 = digitalRead(input4_pin) ; //スイッチの状態を読む
 
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(1000); // Wait for 1000 millisecond(s)
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(1000); // Wait for 1000 millisecond(s)
-  
+  lcd.clear();               // LCD画面をクリア
+
+  //タクトスイッチ1の処理
+  if(status1 == HIGH){
+
+  }else{
+
+  }
+
+  //タクトスイッチ2の処理
+  if(status2 == HIGH){
+
+  }else{
+
+  }  
+
+  if(status3 == HIGH){
+    if (status4 == HIGH) {
+      lcd.setCursor(0, 1);       // カーソルの位置を指定
+      lcd.print("NITTC ARDUINO:0");  // 文字の表示
+    }else {
+      lcd.setCursor(0, 1);       // カーソルの位置を指定
+      lcd.print("NITTC ARDUINO:1");  // 文字の表示
+    }
+  }else{
+    if (status4 == HIGH) {
+      lcd.setCursor(0, 1);       // カーソルの位置を指定
+      lcd.print("NITTC ARDUINO:2");  // 文字の表示
+    }else {
+      lcd.setCursor(0, 1);       // カーソルの位置を指定
+      lcd.print("NITTC ARDUINO:3");  // 文字の表示
+    }
+  }  
+
+  delay(100);
 }
