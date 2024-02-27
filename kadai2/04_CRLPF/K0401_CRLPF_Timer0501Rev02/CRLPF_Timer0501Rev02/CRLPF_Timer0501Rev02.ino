@@ -1,22 +1,39 @@
+/*
+    CR回路フィルタ特性測定実験
+    |_ タイマー割り込みによる正弦波をCRフィルタを通して出力する．
+    |_ PWMで正弦波の位相にあわせて矩形波を出力する．
+
+
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputに接続されているコンポーネントのリスト
+
+    Created R6.02.01
+    By S.YOSHIMOTO
+    Modified 
+    By 
+
+    URL:
+
+*/
 #include <LiquidCrystal.h>
 
 #define N_WAVE 128
 #define step_div 64
 #define sine_gen 12
 #define PWM_GEN 11
-
-#define BRINK_INTERVAL 250 // LED点滅Timerカウンタ
-
-#define input1_pin 6
-#define input2_pin 5
-#define input3_pin 8
-#define input4_pin 7
+#define input1_pin 8
+#define input2_pin 7
+#define input3_pin 6
+#define input4_pin 5
 
 #define led_pin1 A8
 #define led_pin2 A9
 #define led_pin3 A10
 #define led_pin4 A11
 #define led_pin5 3
+
+#define BRINK_INTERVAL 250 
 
 // LCDディスプレイ設定
 LiquidCrystal lcd(35, 23, 33, 25, 31, 27, 29);
@@ -51,7 +68,7 @@ void setup(){
   pinMode(led_pin3,OUTPUT) ;
   pinMode(led_pin4,OUTPUT) ;
   
-  pinMode(PIN_SIN_WAVE, OUTPUT);
+  pinMode(PWM_GEN, OUTPUT);
   pinMode(sine_gen, OUTPUT);
 
   Serial.begin(115200);

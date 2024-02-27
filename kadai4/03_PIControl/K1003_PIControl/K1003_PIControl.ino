@@ -1,3 +1,20 @@
+/*
+    モーターのPI制御測定
+    |_ モーターの発電入力を測定し、測定結果に応じてモーター出力をPI制御する
+
+
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputに接続されているコンポーネントのリスト
+
+    Created R6.02.01
+    By S.YOSHIMOTO
+    Modified 
+    By 
+
+    URL:
+
+*/
 #include <LiquidCrystal.h>
 
 #define input1_pin 8 //Tact01 

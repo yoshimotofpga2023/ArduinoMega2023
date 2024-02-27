@@ -224,3 +224,11 @@ void loop(){
 }
 
 ```
+
+## シミュレーション for ArduinoMega
+
+### wokwi
+ ![2bunshu](./pic_LED/wokwiK0101.png "pinAssign")
+
+### SimuLIDE
+ ![2bunshu](./pic_LED/simIK0101.png "pinAssign")

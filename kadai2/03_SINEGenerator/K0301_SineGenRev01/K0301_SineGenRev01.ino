@@ -4,22 +4,22 @@
 #define N_WAVE 1024
 #define step_div 8
 
-#define input1_pin 7
-#define input2_pin 6
-#define input3_pin 5
-#define input4_pin 4
+#define input1_pin 8
+#define input2_pin 7
+#define input3_pin 6
+#define input4_pin 5
 
-#define led_pin1 10
+#define led_pin1 A8
 #define led_pin2 A9
 #define led_pin3 A10
-#define led_pin4 13
-
-#define sine_gen 12
-#define PWM_GEN 11
+#define led_pin4 A11
 
 #define BRINK_INTERVAL 250 
 
 LiquidCrystal lcd(35, 23, 33, 25, 31, 27, 29);
+
+#define sine_gen 12
+#define PWM_GEN 11
 
 const int INPUT_PIN = A0;    // 入力ピンをA0に固定
 unsigned long VOLUME;                  // 変数を整数型で宣言
@@ -106,13 +106,9 @@ ISR (TIMER5_COMPA_vect) {
 void loop(){
   int status1, status2, status3, status4 ;
   status1 = digitalRead(input1_pin) ; //スイッチの状態を読む
-
-  //  Serial.println(status1) ;
-
   status2 = digitalRead(input2_pin) ; //スイッチの状態を読む
   status3 = digitalRead(input3_pin) ; //スイッチの状態を読む
   status4 = digitalRead(input4_pin) ; //スイッチの状態を読む
-
 
   
   VOLUME = analogRead(INPUT_PIN);  // アナログ値の読み取り

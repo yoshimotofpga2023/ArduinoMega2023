@@ -1,23 +1,42 @@
+/*
+    LPフィルタ特性測定実験
+    |_ タイマー割り込みによる正弦波をローパスフィルタ（移動平均）を通して出力する．
+    |_ フィルタなしの正弦波を出力する、振幅、位相特性を測定する．
+
+
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputに接続されているコンポーネントのリスト
+
+    Created R6.02.01
+    By S.YOSHIMOTO
+    Modified 
+    By 
+
+    URL:
+
+*/
 #include <LiquidCrystal.h>
 
 #define PIN_SIN_WAVE 3
 #define N_WAVE 1024
 #define step_div 8
 
-#define input1_pin 7
-#define input2_pin 6
-#define input3_pin 5
-#define input4_pin 4
+#define input1_pin 8
+#define input2_pin 7
+#define input3_pin 6
+#define input4_pin 5
 
-#define led_pin1 10
+#define led_pin1 A8
 #define led_pin2 A9
 #define led_pin3 A10
-#define led_pin4 13
+#define led_pin4 A11
+#define led_pin5 3
+
+#define BRINK_INTERVAL 250 
 
 #define sine_gen 12
 #define PWM_GEN 11
-
-#define BRINK_INTERVAL 250 
 
 LiquidCrystal lcd(35, 23, 33, 25, 31, 27, 29);
 
