@@ -15,3 +15,21 @@
  ![top](./pic_CRLPF/22k_CRLPFPhase.png "top")
  ![top](./pic_CRLPF/11k_CRLPFPhase.png "top")
  ※かなり怪しいので要検証
+
+
+## シミュレーション for ArduinoMega
+
+### wokwi
+ 未検証．
+
+### SimuLIDE
+ ![2bunshu](./pic_CRLPF/simIKadai0301.png "pinAssign")
+
+ ![2bunshu](./pic_CRLPF/simIKadai0302.png "pinAssign")
+
+ ![2bunshu](./pic_CRLPF/simIKadai0303.png "pinAssign")
+
+ ![2bunshu](./pic_CRLPF/simIKadai0304.png "pinAssign")
+
+ ![2bunshu](./pic_CRLPF/simIKadai0305.png "pinAssign")
+

@@ -16,3 +16,24 @@
  ![3V](./pic_PWM/PWMTODCV02.png "3V")
 
  ![5V](./pic_PWM/PWMTODCV03.png "5V") 
+
+## シミュレーション for ArduinoMega
+
+### wokwi
+ 未検証．
+
+### SimuLIDE
+ ![2bunshu](./pic_PWM/simIK020301.png "pinAssign")
+
+ ![2bunshu](./pic_PWM/simIK020302.png "pinAssign")
+
+ ![2bunshu](./pic_PWM/simIK020303.png "pinAssign")
+
+ ![2bunshu](./pic_PWM/simIK020304.png "pinAssign")
+
+ ![2bunshu](./pic_PWM/simIK020305.png "pinAssign")
+
+
+
+
+

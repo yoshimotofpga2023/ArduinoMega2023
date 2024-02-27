@@ -29,3 +29,14 @@
  ** 位相特性
 
  ![phase_8](./picDF/DFLPFphase_8.png "phase_8")
+
+ ## シミュレーション for ArduinoMega
+
+### wokwi
+ 未検証．
+
+### SimuLIDE
+ ![2bunshu](./picDF/simIK0801.png "pinAssign")
+
+
+ ![2bunshu](./picDF/simIK0802.png "pinAssign")

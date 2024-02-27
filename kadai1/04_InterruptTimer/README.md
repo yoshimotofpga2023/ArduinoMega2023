@@ -9,4 +9,10 @@
 * 4.096ms割り込み周期となるため、1秒は250回（BRINK_INTERVAL)としている。
 
 
+## シミュレーション for ArduinoMega
 
+### wokwi
+ ![2bunshu](./pic_OneSecTimer/wokwiK0201.png "pinAssign")
+
+### SimuLIDE
+ ![2bunshu](./pic_OneSecTimer/simIK0201.png "pinAssign")

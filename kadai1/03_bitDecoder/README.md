@@ -10,3 +10,11 @@
 * 回路図（ブレッドボード配線）例
 
 ![2bunshu](./pic_bitDecoder/binDecoder.png "pinAssign")
+
+## シミュレーション for ArduinoMega
+
+### wokwi
+ ![2bunshu](./pic_bitDecoder/wokwiK0103.png "pinAssign")
+
+### SimuLIDE
+ ![2bunshu](./pic_bitDecoder/simIK0103.png "pinAssign")

@@ -61,3 +61,25 @@
      理論値　1024 / 60 = 17 → 1 / (17 * 4.096ms) =  14[Hz]     
 
      ![top](./pic_SINEGen/singen_4096_S60.png "top")
+
+
+## シミュレーション for ArduinoMega
+
+### wokwi
+ 未検証．
+
+### SimuLIDE
+
+ ![2bunshu](./pic_SINEGen/simIK030103.png "pinAssign")
+
+ ![2bunshu](./pic_SINEGen/simIK030104.png "pinAssign")
+
+
+
+
+
+
+
+
+
+
