@@ -40,6 +40,13 @@ arduinoMega用にシミュレーションを追加（SimulationV1）
 
   * プロジェクトのパーマネントリンク発行可能．
 
+  * 作成例
+
+    [パーマネントリンク；１秒割り込みLチカ](https://wokwi.com/projects/390779763933678593)
+
+    ![2bunshu](./kadai1/04_InterruptTimer/pic_OneSecTimer/wokwiK0201.png "pinAssign")
+
+
 ### SimuLIDE
 
   * [SimuLIDE](https://simulide.com/p/)
@@ -55,3 +62,7 @@ arduinoMega用にシミュレーションを追加（SimulationV1）
   * プログラムはarduino IDEでコンパイル、実行ファイルを生成後、SimulIDEのエディタ上でロードする．
 
   * 2016年あたりの文献はウェブ上で確認できるが情報は少ない．
+
+  * 作成例
+
+    ![2bunshu](./kadai2/04_CRLPF/pic_CRLPF/simIKadai0305.png "pinAssign")
