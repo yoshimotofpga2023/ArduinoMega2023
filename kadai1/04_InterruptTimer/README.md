@@ -16,3 +16,5 @@
 
 ### SimuLIDE
  ![2bunshu](./pic_OneSecTimer/simIK0201.png "pinAssign")
+
+ ![2bunshu](./pic_OneSecTimer/k0201MOV.gif "pinAssign")

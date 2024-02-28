@@ -66,3 +66,17 @@ arduinoMega用にシミュレーションを追加（SimulationV1）
   * 作成例
 
     ![2bunshu](./kadai2/04_CRLPF/pic_CRLPF/simIKadai0305.png "pinAssign")
+
+## 参考
+
+### wokwi
+
+* [ツール・ラボ](https://tool-lab.com/wokwi-usage/)
+
+### simuLIDE
+
+* [公式Youtube](https://www.youtube.com/watch?v=xvSK6eoMHIw&list=PL0YDA67EjDEEasQXWilro9SEyDHN-H6ug)
+
+* [no+e ; ArduinoでNゲージ](https://note.com/kanreki_debut/n/n3877bf451b77)
+
+  arduinoでコンパイルしてsimulIDEによみこむまで

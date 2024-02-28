@@ -14,3 +14,5 @@
 
 ### SimuLIDE
  ![2bunshu](./pic_DAADConv/simIK1001.png "pinAssign")
+
+ ![2bunshu](./pic_DAADConv/simIK1001.gif "pinAssign")
