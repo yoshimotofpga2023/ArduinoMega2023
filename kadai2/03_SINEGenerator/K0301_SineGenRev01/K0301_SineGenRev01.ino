@@ -1,3 +1,20 @@
+/*
+    正弦波発生 for Arduino Mega
+    |_ 指定された位相に応じた正弦波値をPWMで出力する
+
+
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputに接続されているコンポーネントのリスト
+
+    Created R6.02.01
+    By S.YOSHIMOTO
+    Modified 
+    By 
+
+    URL:
+
+*/
 #include <LiquidCrystal.h>
 
 #define PIN_SIN_WAVE 3

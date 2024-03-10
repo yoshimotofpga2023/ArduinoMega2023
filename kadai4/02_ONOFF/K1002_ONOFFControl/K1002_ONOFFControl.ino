@@ -1,3 +1,21 @@
+/*
+    ONOFF制御 for Arduino Mega
+    |_ DCモーターの入力電圧値に応じたONOFF制御プログラム
+
+
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputに接続されているコンポーネントのリスト
+
+    Created R6.02.01
+    By S.YOSHIMOTO
+    Modified 
+    By 
+
+    URL:
+
+*/
+
 #include <LiquidCrystal.h>
 
 #define input1_pin 8 //Tact01 

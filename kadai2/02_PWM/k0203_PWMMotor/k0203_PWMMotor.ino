@@ -1,3 +1,20 @@
+/*
+    PWMによるモーター駆動 for Arduino Mega
+    |_ PWMポートから指定した値でDCモーターを駆動する
+
+
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputに接続されているコンポーネントのリスト
+
+    Created R6.02.01
+    By S.YOSHIMOTO
+    Modified 
+    By 
+
+    URL:
+
+*/
 #include <LiquidCrystal.h>
 
 #define input1_pin 7

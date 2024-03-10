@@ -1,3 +1,20 @@
+/*
+    AD変換による電圧表示 for Arduino Mega
+    |_ AD変換で取得した値を電圧値に表示する
+
+
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputに接続されているコンポーネントのリスト
+
+    Created R6.02.01
+    By S.YOSHIMOTO
+    Modified 
+    By 
+
+    URL:
+
+*/
 #include <LiquidCrystal.h>
 
 #define input1_pin 8

@@ -1,3 +1,20 @@
+/*
+    入出力モーターによる発電測定 for Arduino Mega
+    |_ モーターを指定した値で駆動し、連動しているDCモーターからAD変換で電圧値を取得する
+
+
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputに接続されているコンポーネントのリスト
+
+    Created R6.02.01
+    By S.YOSHIMOTO
+    Modified 
+    By 
+
+    URL:
+
+*/
 #include <LiquidCrystal.h>
 
 #define input1_pin 8 //Tact01 
