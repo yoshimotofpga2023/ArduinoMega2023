@@ -1,11 +1,12 @@
 /*
-    スイッチ連動LED点灯 for Arduino Mega
-    |_ SWと連動してLEDが点灯点滅するプログラム
+    タイマー割り込みLED点滅① for Arduino Mega
+    |_ タイマー割り込み処理でLEDを点滅させるプログラム
+    |_ タイマー5の割り込み処理
 
 
     The circuit:
     * 各inputに接続されているコンポーネントのリスト
-    * 各outputに接続されているコンポーネントのリスト
+    * 各outputLEDに接続されているコンポーネントのリスト
 
     Created R6.03.10
     By 
@@ -16,24 +17,24 @@
 
 */
 
+const int ledPin1 =  A8;
+const int ledPin2 =  A9;
+const int ledPin3 =  A10;
+const int ledPin4 =  A11;
 
-#define LED1 A8 
-#define sw1 8
-#define LED2 A9
-#define sw2 7
-#define LED3 A10
-#define sw3 6
-#define LED4 A11
-#define sw4 5
+const int inputPin1 = 8;
+const int inputPin2 = 7;
+const int inputPin3 = 6;
+const int inputPin4 = 5;
 
-int output = 0;
-int count = 244;
+int outputLED = 0;
+int timertimerCount = 244;
 
 void setup() {
-  pinMode( LED1, OUTPUT );
-  pinMode( LED2, OUTPUT );
-  pinMode( LED3, OUTPUT );
-  pinMode( LED4, OUTPUT );
+  pinMode( ledPin1, OUTPUT );
+  pinMode( ledPin2, OUTPUT );
+  pinMode( ledPin3, OUTPUT );
+  pinMode( ledPin4, OUTPUT );
 
 
   TCCR5A  = 0;
@@ -51,12 +52,12 @@ void setup() {
 
 ISR (TIMER5_COMPA_vect) {
 
-  if(count == 0){
-    digitalWrite( LED1, output );
-    output =!output;
-    count =244;
+  if(timerCount == 0){
+    digitalWrite( ledPin1, outputLED );
+    outputLED =!outputLED;
+    timerCount =244;
   }else{
-    count -= 1; 
+    timerCount -= 1; 
   }
  
 }
