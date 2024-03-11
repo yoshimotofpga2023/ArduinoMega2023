@@ -12,15 +12,15 @@
     Modified 
     By 
 
-    URL:https://www.tinkercad.com/things/lSnLkh15ZDH-k0101akadai1arduino
+    URL:
 
 */
 
 
-const int = ledPin1 A8;
-const int = ledPin2 A9;
-const int = ledPin3 A10;
-const int = ledPin4 A11;
+const int ledPin1 =  A8;
+const int ledPin2 =  A9;
+const int ledPin3 =  A10;
+const int ledPin4 =  A11;
 
 const int inputPin1 = 8;
 const int inputPin2 = 7;
