@@ -5,9 +5,9 @@
 
     The circuit:
     * 各inputに接続されているコンポーネントのリスト
-    * 各outputに接続されているコンポーネントのリスト
+    * 各outputLEDに接続されているコンポーネントのリスト
 
-    Created R6.02.01
+    Created R6.03.10
     By 
     Modified 
     By 
@@ -17,34 +17,42 @@
 */
 
 #include <LiquidCrystal.h>
-#define VolumeSocket1 A1
-#define LED_Socket 3
-int LED_light = 0;
+const int volumeSocket1 = A0;
+const int ledSocket = 11;
+
+int analogVal;
+float inputVolt;
+float pwmREF;
+int ledLight = 0;
+
 LiquidCrystal lcd( 35, 23, 33, 25, 31, 27, 29 );
 
 void setup() {
-  pinMode( LED_Socket, OUTPUT );
+  pinMode( ledSocket, OUTPUT ); //出力ポート設定
   lcd.begin( 16, 2 );
   lcd.clear();
 }
 
 void loop() {
   lcd.clear();
-  #define Analogval (analogRead(VolumeSocket1))
-  #define Inputvolt (Analogval*5.0/1023.0)
-  int PWM_REF (Analogval/4.0);
+
+  analogVal = analogRead(VolumeSocket1);
+  inputVolt = analogVal * 5.0 / 1023.0;
+
+  pwmREF = analogVal/4.0 ; //最大値を255に合わせる。
+
   lcd.setCursor(0, 0);
   lcd.print("PWM_REF");
   lcd.setCursor(11, 0);
-  lcd.print(PWM_REF);
+  lcd.print(pwmREF);
   lcd.setCursor(0, 1);
   lcd.print("Input_volt");
   lcd.setCursor(11, 1);
-  lcd.print(Inputvolt);  
+  lcd.print(inputVolt);  
   lcd.setCursor(15, 1);
   lcd.print("V");
 
-  analogWrite( LED_Socket, PWM_REF );
+  analogWrite( ledSocket, pwmREF ); //PWM出力
   delay( 50 );
 
 }
