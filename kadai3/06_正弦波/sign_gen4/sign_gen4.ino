@@ -1,3 +1,19 @@
+/*
+    デジタルフィルタ8点平均 for Arduino Mega
+
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputLEDに接続されているコンポーネントのリスト
+
+    Created R6.03.10
+    By 
+    Modified 
+    By 
+
+    URL:
+
+*/
+
 #include <LiquidCrystal.h>
 
 //#define PIN_SIN_WAVE 3

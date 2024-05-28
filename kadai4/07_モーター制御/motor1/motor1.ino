@@ -1,46 +1,53 @@
-// Timer5の比較一致割り込みを設定してAD変換を開始させる
+/*
+    可変抵抗調整によるモーター駆動 for Arduino Mega
+    ┗ モーターを可変抵抗の入力値に応じたスピードで駆動する
+
+
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputに接続されているコンポーネントのリスト
+
+    Created R6.02.01
+    By 
+    Modified 
+    By 
+
+    URL:
+
+*/
 
 #include <LiquidCrystal.h>
 
-#define input1_pin 8
-#define input2_pin 7
-#define input3_pin 6
-#define input4_pin 5
+const int input1Pin = 8;
+const int input1Pin = 7;
+const int input1Pin = 6;
+const int input1Pin = 5;
 
-#define led_pin1 A8
-#define led_pin2 A9
-#define led_pin3 A10
-#define led_pin4 A11
+const int led1Pin = A8;
+const int led2Pin = A9;
+const int led3Pin = A10;
+const int led4Pin = A11;
+const int inputPin = A0;    // 入力ピンをA0に固定
 
-//#define BRINK_INTERVAL 250 
+volatile int ad_data;
+volatile float v_data;
 
 LiquidCrystal lcd(35, 23, 33, 25, 31, 27, 29);
 
-
-const int INPUT_PIN = A0;    // 入力ピンをA0に固定
-//unsigned long VOLUME;                  // 変数を整数型で宣言
-int ad_data;
-float v_data;
-
-int LEDx;
-
 void setup() {
 
-  pinMode(INPUT_PIN, INPUT);
-  pinMode(input1_pin,INPUT) ;
-  pinMode(input2_pin,INPUT) ; 
-  pinMode(input3_pin,INPUT) ;
-  pinMode(input4_pin,INPUT) ;
+  pinMode(inputPin, INPUT);
+  pinMode(input1Pin,INPUT) ;
+  pinMode(input2Pin,INPUT) ; 
+  pinMode(input3Pin,INPUT) ;
+  pinMode(input4Pin,INPUT) ;
   
-  pinMode(led_pin1,OUTPUT) ;
-  pinMode(led_pin2,OUTPUT) ;
-  pinMode(led_pin3,OUTPUT) ;
-  pinMode(led_pin4,OUTPUT) ;
-
-  //pinMode(3,OUTPUT) ;
+  pinMode(led1Pin,OUTPUT) ;
+  pinMode(led2Pin,OUTPUT) ;
+  pinMode(led3Pin,OUTPUT) ;
+  pinMode(led4Pin,OUTPUT) ;
 
   Serial.begin(9600);
-
   lcd.begin(16, 2);          // LCDの桁数と行数を指定する(16桁2行)
 
 /*
@@ -116,54 +123,28 @@ void setup() {
   // デューティサイクルを約50%に設定（チャネルB）
   //OCR3B = 2604;
 
-  LEDx=HIGH;
-
 }
 
 
 // Timer5の比較一致割り込みハンドラ
 ISR(TIMER5_COMPA_vect) {
-ad_data = analogRead(INPUT_PIN);
+  int status1, status2, status3, status4 ;
+
+  ad_data = analogRead(inputPin);
+
   OCR1A = ad_data;
   OCR3B = ad_data;
 
-
-  int status1, status2, status3, status4 ;
-  status1 = digitalRead(input1_pin) ; //スイッチの状態を読む
-  status2 = digitalRead(input2_pin) ; //スイッチの状態を読む
-  status3 = digitalRead(input3_pin) ; //スイッチの状態を読む
-  status4 = digitalRead(input4_pin) ; //スイッチの状態を読む
+  status1 = digitalRead(input1Pin) ; //スイッチの状態を読む
+  status2 = digitalRead(input2Pin) ; //スイッチの状態を読む
+  status3 = digitalRead(input3Pin) ; //スイッチの状態を読む
+  status4 = digitalRead(input4Pin) ; //スイッチの状態を読む
 
   v_data = ad_data * 4888.0 /1000000.0;
-/*
-  lcd.begin(16, 2);          // LCDの桁数と行数を指定する(16桁2行)
-  lcd.clear();               // LCD画面をクリア
-  lcd.setCursor(0, 0);       // カーソルの位置を指定
-  lcd.print("ad_data");       // 文字の表示
-  lcd.setCursor(0, 1);       // カーソルの位置を指定
-  lcd.print("INPUT V=");  // 文字の表示
-  lcd.setCursor(10, 0);
-  lcd.print(ad_data); 
-  lcd.setCursor(10, 1);
-  lcd.print(v_data); 
-  lcd.setCursor(14, 1);
-  lcd.print("V");
-*/
-
-//  Serial.println(ad_data);
-//  Serial.println(v_data);
-//  delay(100);  
-
-/*
-digitalWrite( 3, LEDx );
-LEDx =!LEDx;
-*/
 }
 
 void loop() {
-
-  //lcd.begin(16, 2);          // LCDの桁数と行数を指定する(16桁2行)
-   lcd.clear();               // LCD画面をクリア
+  lcd.clear();               // LCD画面をクリア
   lcd.setCursor(0, 0);       // カーソルの位置を指定
   lcd.print("ad_data");       // 文字の表示
   lcd.setCursor(0, 1);       // カーソルの位置を指定

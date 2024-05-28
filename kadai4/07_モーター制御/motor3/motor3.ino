@@ -1,4 +1,23 @@
-// Timer5の比較一致割り込みを設定してAD変換を開始させる
+/*
+    入出力モーターによる発電測定 for Arduino Mega
+    ┗ モーターを指定した値で駆動し、連動しているDCモーターから
+    　AD変換で電圧値を取得する
+    ┗ONOFF制御
+      ┗しきい値を設けて閾値によって出力モーターの出力を調整する
+
+
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputに接続されているコンポーネントのリスト
+
+    Created R6.02.01
+    By 
+    Modified 
+    By 
+
+    URL:
+
+*/
 
 #include <LiquidCrystal.h>
 
@@ -12,13 +31,7 @@
 #define led_pin3 A10
 #define led_pin4 A11
 
-//#define BRINK_INTERVAL 250 
-
-LiquidCrystal lcd(35, 23, 33, 25, 31, 27, 29);
-
-
 const int INPUT_PIN = A0;    // 入力ピンをA0に固定
-//unsigned long VOLUME;                  // 変数を整数型で宣言
 int ad_data;
 float v_data;
 
@@ -36,6 +49,8 @@ int ad_4;
 int ad_5;
 int ad_6;
 int ad_7;
+
+LiquidCrystal lcd(35, 23, 33, 25, 31, 27, 29);
 
 void setup() {
 

@@ -1,75 +1,84 @@
-// Timer5の比較一致割り込みを設定してAD変換を開始させる
+/*
+    アナログフィルタ特性測定実験 for Arduino Mega
+    ┗Timer5の比較一致割り込みを設定してAD変換を開始させる
+    ┗Timer5の割り込み間隔でAD変換割り込みを発生させる
+    ┗Timer1に対応するピンでPWM波形を発生させる
 
+    The circuit:
+    * 各inputに接続されているコンポーネントのリスト
+    * 各outputLEDに接続されているコンポーネントのリスト
+
+    Created R6.03.10
+    By 
+    Modified 
+    By 
+
+    URL:
+
+*/
 #include <LiquidCrystal.h>
 
-//#define PIN_SIN_WAVE 3
-#define N_WAVE 1024
-#define step_div 8
+const int nWave = 1024;
+const int stepDiv = 8;
 
-#define input1_pin 8
-#define input2_pin 7
-#define input3_pin 6
-#define input4_pin 5
+const int input1Pin = 8;
+const int input1Pin = 7;
+const int input1Pin = 6;
+const int input1Pin = 5;
 
-#define led_pin1 A8
-#define led_pin2 A9
-#define led_pin3 A10
-#define led_pin4 A11
+const int led1Pin = A8;
+const int led2Pin = A9;
+const int led3Pin = A10;
+const int led4Pin = A11;
 
-//#define BRINK_INTERVAL 250 
+const int inputPin = A0;    // 入力ピンをA0に固定
 
-LiquidCrystal lcd(35, 23, 33, 25, 31, 27, 29);
-
-//#define sine_gen 12
-//#define PWM_GEN 11
-
-const int INPUT_PIN = A0;    // 入力ピンをA0に固定
 unsigned long VOLUME;                  // 変数を整数型で宣言
 unsigned int step;
 unsigned int Timer1_tick;	// Timer1の割り込み回数を数える変数
-
-unsigned int wave[N_WAVE];
+unsigned int wave[nWave];
 
 volatile unsigned int i_wave;
-volatile float unit_deg = (2.0 * 3.141592) / N_WAVE;
-
+volatile float unit_deg = (2.0 * 3.141592) / nWave;
+volatile float frq;
 volatile bool adcReady = false; // AD変換完了フラグ
 
+LiquidCrystal lcd(35, 23, 33, 25, 31, 27, 29);
+
+
 // AD変換完了割り込みハンドラ
+// AD変換結果の処理（ここにコードを追加）
 ISR(ADC_vect) {
-//  uint16_t adcResult = ADC; // AD変換結果の読み取り
   adcReady = true; // フラグをセット
-  // AD変換結果の処理（ここにコードを追加）
 
   unsigned int w;
+  int status1, status2, status3, status4 ;
 
-  if (i_wave >= N_WAVE){
+  if (i_wave >= nWave){
   	i_wave = 0;
   } 
 
   w = wave[i_wave]; 
 
   OCR1A = w;
-//  OCR1A = 1023;
 
   i_wave = i_wave + step;
 
-  int status1, status2, status3, status4 ;
-  status1 = digitalRead(input1_pin) ; //スイッチの状態を読む
-  status2 = digitalRead(input2_pin) ; //スイッチの状態を読む
-  status3 = digitalRead(input3_pin) ; //スイッチの状態を読む
-  status4 = digitalRead(input4_pin) ; //スイッチの状態を読む
+  status1 = digitalRead(input1Pin) ; //スイッチの状態を読む
+  status2 = digitalRead(input2Pin) ; //スイッチの状態を読む
+  status3 = digitalRead(input3Pin) ; //スイッチの状態を読む
+  status4 = digitalRead(input4Pin) ; //スイッチの状態を読む
 
-  VOLUME = analogRead(INPUT_PIN);  // アナログ値の読み取り
+  VOLUME = analogRead(inputPin);  // アナログ値の読み取り
 
-  step = VOLUME / (float) step_div;
+  step = VOLUME / (float) stepDiv;
   if(step < 1){
     step = 1;
   } else if(step >  127){
     step = 127;
   }
 
-  #define frq (1.0/(0.0625e-6*2048*1024)*step)
+  frq = (1.0/(0.0625e-6*2048*1024)*step);
 
   lcd.begin(16, 2);          // LCDの桁数と行数を指定する(16桁2行)
   lcd.clear();               // LCD画面をクリア
@@ -86,7 +95,6 @@ ISR(ADC_vect) {
 
   Serial.println(VOLUME);
   Serial.println(step);
- // delay(100);  
 }
 
 void setup() {
@@ -95,16 +103,16 @@ int i;
   step = 0;
   unit_deg = 0;
 
-  pinMode(INPUT_PIN, INPUT);
-  pinMode(input1_pin,INPUT) ;
-  pinMode(input2_pin,INPUT) ; 
-  pinMode(input3_pin,INPUT) ;
-  pinMode(input4_pin,INPUT) ;
+  pinMode(inputPin, INPUT);
+  pinMode(input1Pin,INPUT) ;
+  pinMode(input2Pin,INPUT) ; 
+  pinMode(input3Pin,INPUT) ;
+  pinMode(input4Pin,INPUT) ;
   
-  pinMode(led_pin1,OUTPUT) ;
-  pinMode(led_pin2,OUTPUT) ;
-  pinMode(led_pin3,OUTPUT) ;
-  pinMode(led_pin4,OUTPUT) ;
+  pinMode(led1Pin,OUTPUT) ;
+  pinMode(led2Pin,OUTPUT) ;
+  pinMode(led3Pin,OUTPUT) ;
+  pinMode(led4Pin,OUTPUT) ;
   
   Serial.begin(9600);
 
@@ -156,8 +164,8 @@ int i;
   // TCCR1A |= (1 << COM1B1); // ピン12を使用する場合はコメントを外す
 
   step = 1;
-  unit_deg = (2.0 * 3.141592) / N_WAVE;
-  for (i = 0; i < N_WAVE; i++)
+  unit_deg = (2.0 * 3.141592) / nWave;
+  for (i = 0; i < nWave; i++)
   {
     wave[i] = (unsigned int)((((sin(unit_deg * (float) i )+ 1.0)/ 2.0 )* 2047.0 ) + 0.5);
   }
