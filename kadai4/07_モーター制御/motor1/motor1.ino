@@ -19,9 +19,9 @@
 #include <LiquidCrystal.h>
 
 const int input1Pin = 8;
-const int input1Pin = 7;
-const int input1Pin = 6;
-const int input1Pin = 5;
+const int input2Pin = 7;
+const int input3Pin = 6;
+const int input4Pin = 5;
 
 const int led1Pin = A8;
 const int led2Pin = A9;

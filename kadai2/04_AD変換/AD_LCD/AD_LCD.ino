@@ -1,6 +1,6 @@
 /*
     AD変換による電圧表示 for Arduino Mega
-    |_ AD変換で取得した値を電圧値に表示する
+    └ AD変換で取得した値を電圧値に表示する
 
 
     The circuit:
