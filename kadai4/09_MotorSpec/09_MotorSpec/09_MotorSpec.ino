@@ -93,21 +93,21 @@ void setup() {
 // Timer5の比較一致割り込み
 ISR(TIMER5_COMPA_vect) {
 
-ad_7 = ad_6;
-ad_6 = ad_5;
-ad_5 = ad_4;
-ad_4 = ad_3;
-ad_3 = ad_2;
-ad_2 = ad_1;
-ad_1 = ad_0;
-ad_0 = analogRead(A2);
+  ad_7 = ad_6;
+  ad_6 = ad_5;
+  ad_5 = ad_4;
+  ad_4 = ad_3;
+  ad_3 = ad_2;
+  ad_2 = ad_1;
+  ad_1 = ad_0;
+  ad_0 = analogRead(A2);
 
-ad_data = (ad_0 + ad_1 + ad_2 + ad_3 + ad_4 + ad_5 + ad_6 + ad_7) >>3;//平均化処理
+  ad_data = (ad_0 + ad_1 + ad_2 + ad_3 + ad_4 + ad_5 + ad_6 + ad_7) >>3;//平均化処理
 
-  int status_SW ;
-  status_SW = digitalRead(5) ; //スイッチS2の状態を読む
+  int statusSW ;
+  statusSW = digitalRead(5) ; //スイッチS2の状態を読む
 
-  if(status_SW==1){
+  if(statusSW==1){
     mv = 300;
   }else{
     mv = 800;
@@ -120,7 +120,7 @@ ad_data = (ad_0 + ad_1 + ad_2 + ad_3 + ad_4 + ad_5 + ad_6 + ad_7) >>3;//平均�
 
 void loop() {
 
-   lcd.clear();               // LCD画面をクリア
+  lcd.clear();               // LCD画面をクリア
   lcd.setCursor(0, 0);       // カーソルの位置を指定
   lcd.print("mv");       // 文字の表示
   lcd.setCursor(0, 1);       // カーソルの位置を指定

@@ -89,7 +89,8 @@ void setup() {
   // PWMの周波数を設定するためのICR3の値を設定
   ICR3 = 1024; // 
 
- lcd.begin(16, 2);          // LCDの桁数と行数を指定する(16桁2行)
+  lcd.begin(16, 2);          // LCDの桁数と行数を指定する(16桁2行)
+  lcd.clear();               // LCD画面をクリア
 }
 
 // Timer5の比較一致割り込み
@@ -120,7 +121,10 @@ ISR(TIMER5_COMPA_vect) {
 }
 
 void loop() {
-    if(status4){
+
+  lcd.clear();               // LCD画面をクリア
+  
+  if(status4){
     Target = 400;
   }else{
     Target = 200;
@@ -167,7 +171,7 @@ void loop() {
     lcd.setCursor(12, 1);
     lcd.print(ki); 
   }
-lcd.setCursor(0, 0);       // カーソルの位置を指定
+  lcd.setCursor(0, 0);       // カーソルの位置を指定
   lcd.print("T=  ");       // 文字の表示
   lcd.setCursor(3, 0);
   lcd.print(Target); 

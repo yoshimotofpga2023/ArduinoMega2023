@@ -1,5 +1,6 @@
 /*
     デジタルフィルタ8点平均 for Arduino Mega
+    └ 8点移動平均を行い正弦波を出力する．
 
     The circuit:
     * 各inputに接続されているコンポーネントのリスト
@@ -30,21 +31,15 @@
 #define led_pin3 A10
 #define led_pin4 A11
 
-//#define BRINK_INTERVAL 250 
-
 LiquidCrystal lcd(35, 23, 33, 25, 31, 27, 29);
 
-//#define sine_gen 12
-//#define PWM_GEN 11
-
-const int INPUT_PIN = A0;    // 入力ピンをA0に固定
+const int inputPin = A0;    // 入力ピンをA0に固定
 unsigned long VOLUME;                  // 変数を整数型で宣言
 unsigned int step;
-unsigned int Timer1_tick;	// Timer1の割り込み回数を数える変数
 
 unsigned int wave[N_WAVE];
 
-volatile unsigned int i_wave;
+volatile unsigned int iWave;
 volatile float unit_deg = (2.0 * 3.141592) / N_WAVE;
 
 int ad_0;
@@ -60,11 +55,11 @@ int ad_data;
 
 void setup(){
   int i;
-  i_wave = 0;
+  iWave = 0;
   step = 0;
   unit_deg = 0;
 
-  pinMode(INPUT_PIN, INPUT);
+  pinMode(inputPin, INPUT);
   pinMode(input1_pin,INPUT) ;
   pinMode(input2_pin,INPUT) ; 
   pinMode(input3_pin,INPUT) ;
@@ -119,15 +114,6 @@ void setup(){
   TCCR1A |= (1 << COM1A1);
   TCCR1A |= (1 << COM1B1); // ピン12を使用する場合はコメントを外す
 
-/*
-  lcd.begin(16, 2);          // LCDの桁数と行数を指定する(16桁2行)
-  lcd.clear();               // LCD画面をクリア
-  lcd.setCursor(0, 0);       // カーソルの位置を指定
-  lcd.print("Hello!");       // 文字の表示
-  lcd.setCursor(0, 1);       // カーソルの位置を指定
-  lcd.print("NITTC ARDUINO");  // 文字の表示
-*/
-
   step = 1;
   unit_deg = (2.0 * 3.141592) / N_WAVE;
   for (i = 0; i < N_WAVE; i++)
@@ -143,11 +129,11 @@ ISR (TIMER5_COMPA_vect) {
 
   unsigned int w;
 
-  if (i_wave >= N_WAVE){
-  	i_wave = 0;
+  if (iWave >= N_WAVE){
+  	iWave = 0;
   } 
 
-  w = wave[i_wave]; 
+  w = wave[iWave]; 
 
   ad_7 = ad_6;
   ad_6 = ad_5;
@@ -166,35 +152,22 @@ ISR (TIMER5_COMPA_vect) {
 
 //  OCR1A = 1023;
 
-  i_wave = i_wave + step;
+  iWave = iWave + step;
 
-  VOLUME = analogRead(INPUT_PIN);  // アナログ値の読み取り
-//  step = VOLUME / (float) step_div;
+  VOLUME = analogRead(inputPin);  // アナログ値の読み取り
     step = VOLUME / step_div;
   if(step < 1){
     step = 1;
   } else if(step >  255){
     step = 255;
   }
-//  #define frq (1.0/(0.0625e-6*2048*1024)*step)
+
   #define frq (1.0/(0.512e-3*1024)*step)
 }
 
-/*
-ISR (TIMER1_COMPA_vect){
-
-//  digitalWrite(A11, !digitalRead(A11));
-}
-*/
 
 void loop(){
-/*
-int status1, status2, status3, status4 ;
-  status1 = digitalRead(input1_pin) ; //スイッチの状態を読む
-  status2 = digitalRead(input2_pin) ; //スイッチの状態を読む
-  status3 = digitalRead(input3_pin) ; //スイッチの状態を読む
-  status4 = digitalRead(input4_pin) ; //スイッチの状態を読む
-*/
+
   lcd.clear();               // LCD画面をクリア
   lcd.setCursor(0, 0);       // カーソルの位置を指定
   lcd.print("step");       // 文字の表示
