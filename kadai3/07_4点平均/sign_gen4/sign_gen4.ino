@@ -17,19 +17,18 @@
 
 #include <LiquidCrystal.h>
 
-//#define PIN_SIN_WAVE 3
 #define N_WAVE 1024
 #define step_div 4
 
-#define input1_pin 8
-#define input2_pin 7
-#define input3_pin 6
-#define input4_pin 5
+#define input1Pin 8
+#define input2Pin 7
+#define input3Pin 6
+#define input4Pin 5
 
-#define led_pin1 A8
-#define led_pin2 A9
-#define led_pin3 A10
-#define led_pin4 A11
+#define ledPin1 A8
+#define ledPin2 A9
+#define ledPin3 A10
+#define ledPin4 A11
 
 LiquidCrystal lcd(35, 23, 33, 25, 31, 27, 29);
 
@@ -40,7 +39,7 @@ unsigned int step;
 unsigned int wave[N_WAVE];
 
 volatile unsigned int iWave;
-volatile float unit_deg = (2.0 * 3.141592) / N_WAVE;
+volatile float unitDeg = (2.0 * 3.141592) / N_WAVE;
 
 int ad_0;
 int ad_1;
@@ -57,18 +56,18 @@ void setup(){
   int i;
   iWave = 0;
   step = 0;
-  unit_deg = 0;
+  unitDeg = 0;
 
   pinMode(inputPin, INPUT);
-  pinMode(input1_pin,INPUT) ;
-  pinMode(input2_pin,INPUT) ; 
-  pinMode(input3_pin,INPUT) ;
-  pinMode(input4_pin,INPUT) ;
+  pinMode(input1Pin,INPUT) ;
+  pinMode(input2Pin,INPUT) ; 
+  pinMode(input3Pin,INPUT) ;
+  pinMode(input4Pin,INPUT) ;
   
-  pinMode(led_pin1,OUTPUT) ;
-  pinMode(led_pin2,OUTPUT) ;
-  pinMode(led_pin3,OUTPUT) ;
-  pinMode(led_pin4,OUTPUT) ;
+  pinMode(ledPin1,OUTPUT) ;
+  pinMode(ledPin2,OUTPUT) ;
+  pinMode(ledPin3,OUTPUT) ;
+  pinMode(ledPin4,OUTPUT) ;
   
   Serial.begin(115200);
 
@@ -115,10 +114,10 @@ void setup(){
   TCCR1A |= (1 << COM1B1); // ピン12を使用する場合はコメントを外す
 
   step = 1;
-  unit_deg = (2.0 * 3.141592) / N_WAVE;
+  unitDeg = (2.0 * 3.141592) / N_WAVE;
   for (i = 0; i < N_WAVE; i++)
   {
-    wave[i] = (unsigned int)((((sin(unit_deg * (float) i )+ 1.0)/ 2.0 )* 2047.0 ) + 0.5);
+    wave[i] = (unsigned int)((((sin(unitDeg * (float) i )+ 1.0)/ 2.0 )* 2047.0 ) + 0.5);
   }
 
   lcd.begin(16, 2);          // LCDの桁数と行数を指定する(16桁2行)
